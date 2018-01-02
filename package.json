@@ -8,7 +8,7 @@
 	"umd:main": "dist/simple-observer.umd.js",
 	"typings": "./src/index.d.ts",
 	"scripts": {
-    "linter": "xo",
+		"linter": "xo",
 		"test": "jest",
 		"clean": "rimraf dist",
 		"build": "microbundle",
