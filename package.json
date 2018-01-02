@@ -8,8 +8,9 @@
 	"umd:main": "dist/simple-observer.umd.js",
 	"typings": "./src/index.d.ts",
 	"scripts": {
-    "test": "xo && jest",
-    "clean": "rimraf dist",
+    "linter": "xo",
+		"test": "jest",
+		"clean": "rimraf dist",
 		"build": "microbundle",
 		"dev": "microbundle watch"
 	},
@@ -21,6 +22,9 @@
 		"url": "https://github.com/zhw2590582/simple-observer/issues"
 	},
 	"homepage": "https://github.com/zhw2590582/simple-observer#readme",
+	"xo": {
+		"esnext": true
+	},
 	"devDependencies": {
 		"jest": "^22.0.4",
 		"microbundle": "^0.2.4",
