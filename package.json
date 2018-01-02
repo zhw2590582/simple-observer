@@ -1,0 +1,30 @@
+{
+	"name": "simple-observer",
+	"version": "1.0.0",
+	"description": "A simple observer with ES6 Proxy",
+	"source": "./src/index.js",
+	"module": "dist/simple-observer.es.js",
+	"main": "dist/simple-observer.js",
+	"umd:main": "dist/simple-observer.umd.js",
+	"typings": "./src/index.d.ts",
+	"scripts": {
+    "test": "xo && jest",
+    "clean": "rimraf dist",
+		"build": "microbundle",
+		"dev": "microbundle watch"
+	},
+	"repository": "zhw2590582/simple-observer",
+	"keywords": ["observer", "es6", "proxy"],
+	"authors": ["Harvey Zack <laozhaochaguan@hotmail.com>"],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/zhw2590582/simple-observer/issues"
+	},
+	"homepage": "https://github.com/zhw2590582/simple-observer#readme",
+	"devDependencies": {
+		"jest": "^22.0.4",
+		"microbundle": "^0.2.4",
+		"rimraf": "^2.6.2",
+		"xo": "^0.18.2"
+	}
+}
