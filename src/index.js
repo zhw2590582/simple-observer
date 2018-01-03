@@ -1,7 +1,13 @@
 const observeSet = new Set();
 const observableSet = new Set();
 
-const isArray = val => !!val && Array.isArray(val);
+const isArray = value => !!value && Array.isArray(value);
+
+const isPlainObject = value => {
+	if (value === null || typeof value !== 'object') return false;
+	const proto = Object.getPrototypeOf(value);
+	return proto === Object.prototype || proto === null;
+};
 
 let nextTick = task => {
 	Promise.resolve().then(task);
