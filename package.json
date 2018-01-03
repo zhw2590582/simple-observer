@@ -11,8 +11,9 @@
 		"clean": "rimraf dist",
 		"build": "microbundle",
 		"dev": "microbundle watch",
-		"test": "eslint src && jest",
-		"release": "npm test && npm publish"
+		"eslint": "eslint src",
+		"test": "jest",
+		"release": "npm eslint && npm test && npm publish"
 	},
 	"repository": "zhw2590582/simple-observer",
 	"keywords": ["observer", "es6", "proxy"],
