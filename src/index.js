@@ -46,17 +46,23 @@ let handler = {
 		}
 	},
 	defineProperty(obj, key, descriptor) {
-		if (typeof key !== 'symbol' && !(isArray(obj) && key === 'length')) {
+		let result = Reflect.defineProperty(obj, key, descriptor);
+		if (
+			typeof key !== 'symbol' && // 非symbol属性
+			!(isArray(obj) && key === 'length') && // 数组的特殊的length属性
+			result // 定义成功
+		) {
 			runObserveSet();
 		}
-		return Reflect.defineProperty(obj, key, descriptor);
+		return result;
 	},
 	deleteProperty(obj, key) {
-		console.log('deleteProperty');
-		if (typeof key !== 'symbol' && obj.hasOwnProperty(key)) {
+		// 排除属性不可配置，但属性不存在时依然返回true
+		let result = Reflect.deleteProperty(obj, key);
+		if (typeof key !== 'symbol' && obj.hasOwnProperty(key) && result) {
 			runObserveSet();
 		}
-		return Reflect.deleteProperty(obj, key);
+		return result;
 	}
 };
 
