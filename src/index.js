@@ -1,6 +1,10 @@
 const observeSet = new Set();
 const observableSet = new Set();
 
+let nextTick = task => {
+	Promise.resolve().then(task);
+};
+
 let observe = reaction => {
 	if (typeof reaction !== 'function') {
 		throw new TypeError('Reactions must be functions.');
@@ -31,34 +35,38 @@ let isObservable = obj => {
 	return observableSet.has(obj);
 };
 
-let nextTick = task => {
-	Promise.resolve().then(task);
-};
-
 let handler = {
 	get(obj, key, receiver) {
 		const result = Reflect.get(obj, key, receiver);
 		return result;
 	},
-	set(target, prop, value) {
-		console.log(target, prop, value);
-		runObserveSet();
+	set(obj, key, value, receiver) {
+		let oldVal = Reflect.get(obj, key, receiver);
+		if (oldVal !== value) {
+			runObserveSet()
+		}
+		return Reflect.set(obj, key, value, receiver);
 	},
 	ownKeys(target) {
 		return Reflect.ownKeys(target);
 	},
 	deleteProperty(obj, key) {
-		runObserveSet();
+		if (obj.hasOwnProperty(key)) {
+			runObserveSet();
+		}
 		return Reflect.deleteProperty(obj, key);
 	}
 };
 
-let observable = (obj = {}) => {
+let observable = obj => {
+	obj = obj || {};
 	if (typeof obj !== 'object') {
 		throw new TypeError('First argument must be an object or undefined');
 	}
 	if (observableSet.has(obj)) return obj;
-	return new Proxy(obj, handler);
+	let proxyObj = new Proxy(obj, handler);
+	observableSet.add(proxyObj);
+	return proxyObj;
 };
 
 module.exports = {
