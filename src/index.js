@@ -1,6 +1,8 @@
 const observeSet = new Set();
 const observableSet = new Set();
 
+const isArray = val => !!val && Array.isArray(val);
+
 let nextTick = task => {
 	Promise.resolve().then(task);
 };
@@ -17,7 +19,7 @@ let observe = reaction => {
 let runObserveSet = () => {
 	const runningObserveSet = new Set();
 	observeSet.forEach(reaction => runningObserveSet.add(reaction));
-	runningObserveSet.forEach(reaction => reaction());
+	runningObserveSet.forEach(reaction => nextTick(reaction));
 };
 
 let unobserve = reaction => {
@@ -37,21 +39,21 @@ let isObservable = obj => {
 
 let handler = {
 	get(obj, key, receiver) {
-		const result = Reflect.get(obj, key, receiver);
-		return result;
+		try {
+			return new Proxy(obj[key], handler);
+		} catch (err) {
+			return Reflect.get(obj, key, receiver);
+		}
 	},
-	set(obj, key, value, receiver) {
-		let oldVal = Reflect.get(obj, key, receiver);
-		if (oldVal !== value) {
+	defineProperty(obj, key, descriptor) {
+		if (typeof key !== 'symbol' && !(isArray(obj) && key === 'length')) {
 			runObserveSet();
 		}
-		return Reflect.set(obj, key, value, receiver);
-	},
-	ownKeys(target) {
-		return Reflect.ownKeys(target);
+		return Reflect.defineProperty(obj, key, descriptor);
 	},
 	deleteProperty(obj, key) {
-		if (obj.hasOwnProperty(key)) {
+		console.log('deleteProperty');
+		if (typeof key !== 'symbol' && obj.hasOwnProperty(key)) {
 			runObserveSet();
 		}
 		return Reflect.deleteProperty(obj, key);
