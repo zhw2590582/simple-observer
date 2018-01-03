@@ -1,18 +1,16 @@
 const { observable, observe } = require('../src');
 
-let baseState;
-beforeEach(() => {
-	baseState = createBaseState();
-})
-
-test('observable', () => {
-	const proxyData = observable(baseState);
-	observe(() => console.log(proxyData));
-	proxyData.aString = 'wrold';
-	expect(true).toBe(true);
+test('Observe string', done => {
+	const proxyData = observable(createState());
+	observe(() => {
+		expect(proxyData.aString).toBe('wrold');
+	});
+	setTimeout(() => (proxyData.aString = 'wrold'));
 });
 
-function createBaseState() {
+
+
+function createState() {
 	return {
 		aString: 'hi',
 		aBoolean: false,
@@ -24,10 +22,9 @@ function createBaseState() {
 		anArray: [1, 2, 3, [4, 5]],
 		anObject: {
 			a: {
-				c: true
+				c: 'deep'
 			},
-			b: false
+			b: 'shallow'
 		}
 	};
 }
-

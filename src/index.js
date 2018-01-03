@@ -43,7 +43,7 @@ let handler = {
 	set(obj, key, value, receiver) {
 		let oldVal = Reflect.get(obj, key, receiver);
 		if (oldVal !== value) {
-			runObserveSet()
+			runObserveSet();
 		}
 		return Reflect.set(obj, key, value, receiver);
 	},
