@@ -13,6 +13,7 @@ $ npm i -S simple-observer
 ```js
 const { observable, observe, unobserve, isObservable } = require('simple-observer');
 
+// Can't observe for symbol property and Set/Map/WeakSet/WeakMap value.
 let baseState = {
 	aString: 'hi',
 	anArray: [1, 2, 3, [4, 5], { mix: 0 }],

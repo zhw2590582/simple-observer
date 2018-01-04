@@ -25,7 +25,8 @@ let runObserveSet = () => {
 let unobserve = reaction => {
 	if (typeof reaction !== 'function') {
 		observeSet.delete(reaction);
-	} else {
+	}
+	else {
 		observeSet.clear();
 	}
 };
@@ -41,7 +42,8 @@ let handler = {
 	get(obj, key, receiver) {
 		try {
 			return new Proxy(obj[key], handler);
-		} catch (err) {
+		}
+		catch (err) {
 			return Reflect.get(obj, key, receiver);
 		}
 	},

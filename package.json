@@ -1,13 +1,13 @@
 {
 	"name": "simple-observer",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "A simple observer with ES6 Proxy",
 	"main": "./index.js",
 	"typings": "./index.d.ts",
 	"scripts": {
-		"eslint": "eslint src",
+		"eslint": "eslint index.js",
 		"test": "jest",
-		"release": "npm eslint && npm test && npm publish"
+		"release": "npm run eslint && npm run test && npm publish"
 	},
 	"repository": "zhw2590582/simple-observer",
 	"keywords": ["observer", "es6", "proxy"],
