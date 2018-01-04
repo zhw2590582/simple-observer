@@ -3,12 +3,6 @@ const observableSet = new Set();
 
 const isArray = value => !!value && Array.isArray(value);
 
-const isPlainObject = value => {
-	if (value === null || typeof value !== 'object') return false;
-	const proto = Object.getPrototypeOf(value);
-	return proto === Object.prototype || proto === null;
-};
-
 let nextTick = task => {
 	Promise.resolve().then(task);
 };
@@ -53,19 +47,21 @@ let handler = {
 	},
 	defineProperty(obj, key, descriptor) {
 		let result = Reflect.defineProperty(obj, key, descriptor);
-		if (
-			typeof key !== 'symbol' && // 非symbol属性
-			!(isArray(obj) && key === 'length') && // 数组的特殊的length属性
-			result // 定义成功
-		) {
+		if (isArray(obj) && key !== 'length' && result) {
 			runObserveSet();
+			return result;
+		}
+		if (typeof key !== 'symbol' && result) {
+			runObserveSet();
+			return result;
 		}
 		return result;
 	},
 	deleteProperty(obj, key) {
 		// 排除属性不可配置，但属性不存在时依然返回true
+		let hasOwnProperty = obj.hasOwnProperty(key);
 		let result = Reflect.deleteProperty(obj, key);
-		if (typeof key !== 'symbol' && obj.hasOwnProperty(key) && result) {
+		if (typeof key !== 'symbol' && hasOwnProperty && result) {
 			runObserveSet();
 		}
 		return result;

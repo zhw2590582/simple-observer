@@ -1,16 +1,10 @@
 {
 	"name": "simple-observer",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "A simple observer with ES6 Proxy",
-	"source": "./src/index.js",
-	"module": "dist/simple-observer.es.js",
-	"main": "dist/simple-observer.js",
-	"umd:main": "dist/simple-observer.umd.js",
-	"typings": "./src/index.d.ts",
+	"main": "./index.js",
+	"typings": "./index.d.ts",
 	"scripts": {
-		"clean": "rimraf dist",
-		"build": "microbundle",
-		"dev": "microbundle watch",
 		"eslint": "eslint src",
 		"test": "jest",
 		"release": "npm eslint && npm test && npm publish"
@@ -29,8 +23,6 @@
 	"devDependencies": {
 		"eslint": "^4.14.0",
 		"eslint-config-zhw2590582": "^1.1.1",
-		"jest": "^22.0.4",
-		"microbundle": "^0.2.4",
-		"rimraf": "^2.6.2"
+		"jest": "^22.0.4"
 	}
 }
