@@ -32,7 +32,7 @@ const proxyState = observable(baseState);
 // Turns the passed function into a reaction, then executes and returns it. 
 const logger = observe(() => console.log(proxyState));
 
-setTimeout(() => (proxyState.aString = 'wrold'));
+setTimeout(() => (proxyState.aString = 'world'));
 setTimeout(() => proxyState.anArray.push(6));
 setTimeout(() => proxyState.anArray[3].push(6));
 setTimeout(() => proxyState.anArray.pop());

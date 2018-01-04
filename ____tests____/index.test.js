@@ -3,10 +3,10 @@ const { observable, observe, unobserve, isObservable } = require('..');
 test('Observe string change', done => {
 	const proxyData = observable(createState());
 	observe(() => {
-		expect(proxyData.aString).toBe('wrold');
+		expect(proxyData.aString).toBe('world');
 		done();
 	});
-	setTimeout(() => (proxyData.aString = 'wrold'));
+	setTimeout(() => (proxyData.aString = 'world'));
 });
 
 test('Observe number change', done => {
