@@ -1,4 +1,4 @@
-# simple-observer
+# simple-observer [![Build Status](https://www.travis-ci.org/zhw2590582/simple-observer.svg?branch=master)](https://www.travis-ci.org/zhw2590582/simple-observer)
 
 > A simple observer with ES6 Proxy
 
