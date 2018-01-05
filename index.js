@@ -49,9 +49,10 @@ let handler = {
 	},
 	defineProperty(obj, key, descriptor) {
 		let result = Reflect.defineProperty(obj, key, descriptor);
-		if ((isArray(obj) && key !== 'length' && result) || result) {
-			runObserveSet();
+		if (isArray(obj) && key === 'length'){
+			return result;
 		}
+		result && runObserveSet();
 		return result;
 	},
 	deleteProperty(obj, key) {
