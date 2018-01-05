@@ -49,13 +49,8 @@ let handler = {
 	},
 	defineProperty(obj, key, descriptor) {
 		let result = Reflect.defineProperty(obj, key, descriptor);
-		if (isArray(obj) && key !== 'length' && result) {
+		if ((isArray(obj) && key !== 'length' && result) || result) {
 			runObserveSet();
-			return result;
-		}
-		if (typeof key !== 'symbol' && result) {
-			runObserveSet();
-			return result;
 		}
 		return result;
 	},
@@ -63,7 +58,7 @@ let handler = {
 		// 排除属性不可配置，但属性不存在时依然返回true
 		let hasOwnProperty = obj.hasOwnProperty(key);
 		let result = Reflect.deleteProperty(obj, key);
-		if (typeof key !== 'symbol' && hasOwnProperty && result) {
+		if (hasOwnProperty && result) {
 			runObserveSet();
 		}
 		return result;

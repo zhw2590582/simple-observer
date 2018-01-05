@@ -13,9 +13,12 @@ $ npm i -S simple-observer
 ```js
 const { observable, observe, unobserve, isObservable } = require('simple-observer');
 
-// Can't observe for symbol property and Set/Map/WeakSet/WeakMap value.
+// Can't observe for Set/Map/WeakSet/WeakMap value.
+const ASYMBOL = Symbol('aSymbol');
 let baseState = {
 	aString: 'hi',
+	aNumber: 0,
+	[ASYMBOL]: 'aSymbol',
 	anArray: [1, 2, 3, [4, 5], { mix: 0 }],
 	anObject: {
 		a: 'shallow',
@@ -33,6 +36,8 @@ const proxyState = observable(baseState);
 const logger = observe(() => console.log(proxyState));
 
 setTimeout(() => (proxyState.aString = 'world'));
+setTimeout(() => (proxyData.aNumber = 1));
+setTimeout(() => (proxyData[ASYMBOL] = 'aSymbol change'));
 setTimeout(() => proxyState.anArray.push(6));
 setTimeout(() => proxyState.anArray[3].push(6));
 setTimeout(() => proxyState.anArray.pop());

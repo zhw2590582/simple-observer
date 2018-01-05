@@ -1,5 +1,7 @@
 const { observable, observe, unobserve, isObservable } = require('..');
 
+const ASYMBOL = Symbol('aSymbol');
+
 test('Observe string change', done => {
 	const proxyData = observable(createState());
 	observe(() => {
@@ -16,6 +18,15 @@ test('Observe number change', done => {
 		done();
 	});
 	setTimeout(() => (proxyData.aNumber = 1));
+});
+
+test('Observe Symbol change', done => {
+	const proxyData = observable(createState());
+	observe(() => {
+		expect(proxyData[ASYMBOL]).toBe('aSymbol change');
+		done();
+	});
+	setTimeout(() => (proxyData[ASYMBOL] = 'aSymbol change'));
 });
 
 test('Observe array shallow push method', done => {
@@ -117,6 +128,7 @@ function createState() {
 	return {
 		aString: 'hi',
 		aNumber: 0,
+		[ASYMBOL]: 'aSymbol',
 		anArray: [1, 2, 3, [4, 5], { mix: 0 }],
 		anObject: {
 			a: 'shallow',
