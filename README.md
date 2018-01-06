@@ -5,7 +5,7 @@
 ## Install
 
 ```
-$ npm i -S simple-observer
+$ npm install simple-observer
 ```
 
 ## Usage
