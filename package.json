@@ -21,7 +21,7 @@
 		"extends": "eslint-config-zhw2590582"
 	},
 	"devDependencies": {
-		"eslint": "^4.14.0",
+		"eslint": "^5.11.0",
 		"eslint-config-zhw2590582": "^1.1.1",
 		"jest": "^22.0.4"
 	}
