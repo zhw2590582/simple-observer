@@ -23,6 +23,6 @@
 	"devDependencies": {
 		"eslint": "^6.0.1",
 		"eslint-config-zhw2590582": "^1.1.1",
-		"jest": "^25.1.0"
+		"jest": "^26.0.1"
 	}
 }
